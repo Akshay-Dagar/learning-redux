@@ -1,24 +1,8 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { fetchPosts } from '../actions/postActions';
 
 class Posts extends Component {
-
-    constructor (props) {
-        super(props);
-        this.state = {
-            posts : []
-        }
-    }
-
-    componentDidMount = async () => {
-        try {
-            const PostsRes = await fetch("https://jsonplaceholder.typicode.com/posts");
-            const PostsData = await PostsRes.json();
-            this.setState({posts: PostsData});
-        }
-        catch (err) {
-            console.log(err);
-        }
-    }
 
     render() {
 
