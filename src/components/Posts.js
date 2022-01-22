@@ -10,7 +10,8 @@ class Posts extends Component {
     }
 
     componentWillReceiveProps = newProps => {
-        this.props.posts.unshift(newProps.newPost);
+        if (newProps.newPost)
+            this.props.posts.unshift(newProps.newPost);    //will push newPost to front of array posts
     }
 
     render() {
