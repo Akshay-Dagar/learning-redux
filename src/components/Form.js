@@ -1,4 +1,7 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux';
+import { createPost } from '../actions/postActions';
+import propTypes from "prop-types";
 
 class Form extends Component {
 
@@ -15,26 +18,12 @@ class Form extends Component {
     async onSubmit (event) {
         event.preventDefault();                //by default, submit causes a refresh of the component
 
-        try {
-            const post = {
-                title: this.state.title,
-                body: this.state.body
-            }
-
-            const PostsRes = await fetch("https://jsonplaceholder.typicode.com/posts", {
-                method : "POST",
-                headers : {
-                    "content-type" : "application/json"
-                },
-                body : JSON.stringify(post)
-            });
-
-            const PostsData = await PostsRes.json();
-            console.log(PostsData);
+        const post = {
+            title: this.state.title,
+            body: this.state.body
         }
-        catch (err) {
-            console.log(err);
-        }
+
+        this.props.createPost(post);
     }
 
     render() {
@@ -48,4 +37,9 @@ class Form extends Component {
     }
 }
 
-export default Form;
+Form.propTypes = {
+    createPost: propTypes.func.isRequired
+}
+
+
+export default connect(null, {createPost})(Form);
